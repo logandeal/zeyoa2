@@ -31,6 +31,7 @@ const DashBoardPage: React.FC = () => {
       >
         Sign out
       </button>
+      <textarea></textarea>
     </div>
   );
 };
