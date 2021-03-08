@@ -1,9 +1,12 @@
 import { useAuth } from "hooks/useAuth";
+import { useNotes } from "hooks/useNotes";
 import { useRequireAuth } from "hooks/useRequireAuth";
 import Link from "next/link";
 
 const DashBoardPage: React.FC = () => {
   const auth = useRequireAuth();
+  const { note, setNote, onSaveNote } = useNotes();
+
   if (!auth.user)
     return (
       <>
@@ -25,13 +28,27 @@ const DashBoardPage: React.FC = () => {
           </p>
         </div>
       </div>
-      <button
-        onClick={() => auth.signOut()}
-        className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
-      >
-        Sign out
-      </button>
-      <textarea></textarea>
+      <div className="sm:w-full">
+        <button
+          onClick={() => auth.signOut()}
+          className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+        >
+          Sign out
+        </button>
+        <textarea
+          placeholder="Your Note"
+          value={note}
+          onChange={(event) => {
+            setNote(event.target.value);
+          }}
+        ></textarea>
+        <button
+          onClick={onSaveNote}
+          className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 };
